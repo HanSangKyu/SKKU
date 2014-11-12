@@ -1,7 +1,5 @@
 package com.ion.skkuiBeacon;
 
-import com.example.ibeacon.R;
-
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
