@@ -1,5 +1,5 @@
 # cache for current jar dependency. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
-1389933090000 627582 cb6883d96005bc85b3e868f204507ea5b4fa9bbf C:\Users\조은현\workspace2\skkuiBeacon\libs\android-support-v4.jar
-1389933090000 627582 cb6883d96005bc85b3e868f204507ea5b4fa9bbf C:\Users\조은현\workspace2\appcompat_v7\libs\android-support-v4.jar
+1394859992101 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 C:\Users\sec\Desktop\adt-bundle-windows-x86_64-20130917\adt-bundle-windows-x86_64-20130917\sdk\extras\android\support\v7\appcompat\libs\android-support-v4.jar
+1389933090000 627582 cb6883d96005bc85b3e868f204507ea5b4fa9bbf C:\Users\sec\Desktop\skkuiBeacon\libs\android-support-v4.jar

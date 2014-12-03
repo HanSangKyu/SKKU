@@ -13,8 +13,12 @@ public class InformActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_inform);
 		
-		TextView key = (TextView) findViewById(R.id.key);
-		key.setText("key : " + getIntent().getStringExtra("key").toString());
+		/*TextView key = (TextView) findViewById(R.id.key);
+		key.setText("key : " + getIntent().getStringExtra("key").toString());*/
+		TextView name = (TextView) findViewById(R.id.buildingName);
+		name.setText("건물이름 : " + getIntent().getStringExtra("buildingName").toString());
+		TextView explain = (TextView) findViewById(R.id.explain);
+		explain.setText("설명 : " + getIntent().getStringExtra("explain").toString());
 	}
 
 	@Override
