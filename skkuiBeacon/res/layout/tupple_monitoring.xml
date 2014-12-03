@@ -16,13 +16,14 @@
         android:id="@+id/building_name"
         android:layout_width="207dp"
         android:layout_height="fill_parent"
-        android:text="제1공대" />
+        android:gravity="center|left"
+        android:text="제1공학관" />
 
     <TextView
         android:id="@+id/BEACON_range"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:paddingRight="0dp"
+        android:gravity="center|left"
         android:text="40m" />
 
 </LinearLayout>

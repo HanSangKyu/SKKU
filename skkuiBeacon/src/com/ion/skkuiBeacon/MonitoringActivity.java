@@ -49,8 +49,8 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_monitor);
 		try{
-			JSONObject jsonObject = new JSONObject("{beacon:[{key:\"1-2\",image:\"www.naver.com\", name:\"제1공대\",explain:\"어쩌고저쩌고\"}," +
-					"{key:\"1-3\",image:\"www.naver.com\", name:\"제2공대\",explain:\"어쩌고저쩌고\"}]}");
+			JSONObject jsonObject = new JSONObject("{beacon:[{key:\"1-2\",image:\"http://www.skku.ac.kr/new_home/upload/images/campusmap/61.JPG\", name:\"제1공학관\",explain:\"어쩌고저쩌고\"}," +
+					"{key:\"1-4\",image:\"http://www.skku.ac.kr/new_home/upload/images/campusmap/71.JPG\", name:\"제2공학관\",explain:\"건물번호 25\"}]}");
 			beacon = jsonObject.getJSONArray("beacon");
 		} catch(JSONException e){
 			
@@ -184,6 +184,7 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 				if (arrayL.get(position).getProximityUuid() != null)
 		//		holder.beacon_uuid.setText("UUID: " + arrayL.get(position).getProximityUuid());
 		//		holder.beacon_minor.setText("Key : " + arrayL.get(position).getMajor() + "-" + arrayL.get(position).getMinor());
+			
 				holder.beacon_name.setText(buildingName);
 				holder.beacon_range.setText("거리 : " + Double.parseDouble(String.format("%.3f", arrayL.get(position).getAccuracy())) + " m");
 
