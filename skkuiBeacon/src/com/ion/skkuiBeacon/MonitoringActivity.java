@@ -3,6 +3,10 @@ package com.ion.skkuiBeacon;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -35,11 +39,23 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 
 	private BeaconServiceUtility beaconUtill = null;
 	private IBeaconManager iBeaconManager = IBeaconManager.getInstanceForApplication(this);
+	JSONArray beacon;
+	private String buildingName = null;
+	private String imageURL = null;
+	private String explain = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_monitor);
+		try{
+			JSONObject jsonObject = new JSONObject("{beacon:[{key:\"1-2\",image:\"http://www.skku.ac.kr/new_home/upload/images/campusmap/61.JPG\", name:\"제1공학관\",explain:\"어쩌고저쩌고\"}," +
+					"{key:\"1-4\",image:\"http://www.skku.ac.kr/new_home/upload/images/campusmap/71.JPG\", name:\"제2공학관\",explain:\"건물번호 25\"}]}");
+			beacon = jsonObject.getJSONArray("beacon");
+		} catch(JSONException e){
+			
+		}
+		
 		beaconUtill = new BeaconServiceUtility(this);
 		list = (ListView) findViewById(R.id.list);
 		adapter = new BeaconAdapter();
@@ -49,7 +65,10 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 		list.setOnItemClickListener(new OnItemClickListener() {	 
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent newintent = new Intent(MonitoringActivity.this, InformActivity.class);
-				newintent.putExtra("key", arrayL.get(position).getMajor() + "-" + arrayL.get(position).getMinor());
+				//newintent.putExtra("key", arrayL.get(position).getMajor() + "-" + arrayL.get(position).getMinor());
+				newintent.putExtra("buildingName", buildingName);
+				newintent.putExtra("explain", explain);
+				newintent.putExtra("imageURL", imageURL);
 				startActivity(newintent);
 			}
 		} );
@@ -144,7 +163,19 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			try {
 				ViewHolder holder;
-
+				
+				String beaconKey = arrayL.get(position).getMajor() + "-" + arrayL.get(position).getMinor();
+				buildingName = null;
+				imageURL = null;
+				for(int i=0;i<2;i++)
+				{					
+					if(beaconKey.equals(beacon.getJSONObject(i).getString("key")))
+					{
+						buildingName=beacon.getJSONObject(i).getString("name");
+						imageURL=beacon.getJSONObject(i).getString("image");
+						explain=beacon.getJSONObject(i).getString("explain");
+					}
+				}
 				if (convertView != null) {
 					holder = (ViewHolder) convertView.getTag();
 				} else {
@@ -152,9 +183,9 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 				}
 				if (arrayL.get(position).getProximityUuid() != null)
 		//		holder.beacon_uuid.setText("UUID: " + arrayL.get(position).getProximityUuid());
-
-				holder.beacon_minor.setText("Key : " + arrayL.get(position).getMajor() + "-" + arrayL.get(position).getMinor());
-				
+		//		holder.beacon_minor.setText("Key : " + arrayL.get(position).getMajor() + "-" + arrayL.get(position).getMinor());
+			
+				holder.beacon_name.setText(buildingName);
 				holder.beacon_range.setText("거리 : " + Double.parseDouble(String.format("%.3f", arrayL.get(position).getAccuracy())) + " m");
 
 			} catch (Exception e) {
@@ -167,13 +198,15 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 		private class ViewHolder {
 	//		private TextView beacon_uuid;
 	//		private TextView beacon_major;
-			private TextView beacon_minor;
+			//private TextView beacon_minor;
 			private TextView beacon_range;
+			private TextView beacon_name;
 
 			public ViewHolder(View view) {
 	//			beacon_uuid = (TextView) view.findViewById(R.id.BEACON_uuid);
 	//			beacon_major = (TextView) view.findViewById(R.id.BEACON_major);
-				beacon_minor = (TextView) view.findViewById(R.id.BEACON_minor);
+				beacon_name = (TextView) view.findViewById(R.id.building_name);
+				//beacon_minor = (TextView) view.findViewById(R.id.BEACON_minor);
 				beacon_range = (TextView) view.findViewById(R.id.BEACON_range);
 
 				view.setTag(this);

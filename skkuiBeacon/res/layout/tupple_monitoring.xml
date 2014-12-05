@@ -1,27 +1,29 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="horizontal"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:paddingBottom="10dip"
-    android:paddingTop="10dip" >
+    android:background="#D5D5D5" >
+	
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_launcher"
+        />
 
     <TextView
-        android:id="@+id/BEACON_minor"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp" >
-    </TextView>
+        android:id="@+id/building_name"
+        android:layout_width="207dp"
+        android:layout_height="fill_parent"
+        android:gravity="center|left"
+        android:text="제1공학관" />
 
     <TextView
         android:id="@+id/BEACON_range"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/BEACON_minor"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentRight="true" >
-    </TextView>
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center|left"
+        android:text="40m" />
 
-</RelativeLayout>
+</LinearLayout>
