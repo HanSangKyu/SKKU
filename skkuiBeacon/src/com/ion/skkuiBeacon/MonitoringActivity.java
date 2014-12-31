@@ -18,10 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import com.ion.skkuiBeacon.adapter.MyAdapter;
+import com.ion.skkuiBeacon.bean.MyItem;
 import com.radiusnetworks.ibeacon.IBeacon;
 import com.radiusnetworks.ibeacon.IBeaconConsumer;
 import com.radiusnetworks.ibeacon.IBeaconManager;
@@ -33,42 +33,46 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 	protected static final String TAG = "MonitoringActivity";
 
 	private ListView list = null;
-	private BeaconAdapter adapter = null;
+	private MyAdapter adapter = null;
 	private ArrayList<IBeacon> arrayL = new ArrayList<IBeacon>();
+	private ArrayList<MyItem> array = new ArrayList<MyItem>();
 	private LayoutInflater inflater;
 
 	private BeaconServiceUtility beaconUtill = null;
 	private IBeaconManager iBeaconManager = IBeaconManager.getInstanceForApplication(this);
 	JSONArray beacon;
-	private String buildingName = null;
-	private String imageURL = null;
-	private String explain = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_monitor);
+		
 		try{
-			JSONObject jsonObject = new JSONObject("{beacon:[{key:\"1-2\",image:\"http://www.skku.ac.kr/new_home/upload/images/campusmap/61.JPG\", name:\"Á¦1°øÇÐ°ü\",explain:\"¾îÂ¼°íÀúÂ¼°í\"}," +
-					"{key:\"1-4\",image:\"http://www.skku.ac.kr/new_home/upload/images/campusmap/71.JPG\", name:\"Á¦2°øÇÐ°ü\",explain:\"°Ç¹°¹øÈ£ 25\"}]}");
+			JSONObject jsonObject = new JSONObject("{beacon:[{key:\"1-2\",image:\"http://www.skku.ac.kr/new_home/upload/images/campusmap/61.JPG\", name:\"ì œ1ê³µí•™ê´€\",explain:\"ì–´ì©Œê³ ì €ì©Œê³ \"}," +
+					"{key:\"1-4\",image:\"http://www.skku.ac.kr/new_home/upload/images/campusmap/71.JPG\", name:\"ì œ2ê³µí•™ê´€\",explain:\"ê±´ë¬¼ë²ˆí˜¸ 25\"}]}");
 			beacon = jsonObject.getJSONArray("beacon");
-		} catch(JSONException e){
 			
+			for(int i=0;i<2;i++)
+			{
+				array.add(new MyItem(beacon.getJSONObject(i).getString("key"), beacon.getJSONObject(i).getString("image"), beacon.getJSONObject(i).getString("name"), beacon.getJSONObject(i).getString("explain"), 0));
+			}
+		} catch(JSONException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();			
 		}
 		
 		beaconUtill = new BeaconServiceUtility(this);
 		list = (ListView) findViewById(R.id.list);
-		adapter = new BeaconAdapter();
+		adapter = new MyAdapter(this, R.layout.tupple_monitoring, array);
 		list.setAdapter(adapter);
 		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		list.setOnItemClickListener(new OnItemClickListener() {	 
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent newintent = new Intent(MonitoringActivity.this, InformActivity.class);
-				//newintent.putExtra("key", arrayL.get(position).getMajor() + "-" + arrayL.get(position).getMinor());
-				newintent.putExtra("buildingName", buildingName);
-				newintent.putExtra("explain", explain);
-				newintent.putExtra("imageURL", imageURL);
+				newintent.putExtra("image", array.get(position).getImage());
+				newintent.putExtra("name", array.get(position).getName());
+				newintent.putExtra("explain", array.get(position).getExplain());
 				startActivity(newintent);
 			}
 		} );
@@ -97,9 +101,24 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 		iBeaconManager.setRangeNotifier(new RangeNotifier() {
 			@Override
 			public void didRangeBeaconsInRegion(Collection<IBeacon> iBeacons, Region region) {
-
 				arrayL.clear();
 				arrayL.addAll((ArrayList<IBeacon>) iBeacons);
+				
+				String key;
+				
+				for(int j=0;j<array.size();j++){
+					array.get(j).setAccuracy(0);
+				}
+				
+				for(int i=0;i<arrayL.size();i++){
+					key = arrayL.get(i).getMajor() + "-" + arrayL.get(i).getMinor();
+					for(int j=0;j<array.size();j++){
+						if(array.get(j).getKey().equals(key)){
+							array.get(j).setAccuracy(arrayL.get(i).getAccuracy());
+						}
+					}
+				}
+				
 				adapter.notifyDataSetChanged();
 			}
 
@@ -137,82 +156,6 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private class BeaconAdapter extends BaseAdapter {
-
-		@Override
-		public int getCount() {
-			if (arrayL != null && arrayL.size() > 0)
-				return arrayL.size();
-			else
-				return 0;
-		}
-
-		@Override
-		public IBeacon getItem(int arg0) {
-			return arrayL.get(arg0);
-		}
-
-		@Override
-		public long getItemId(int arg0) {
-			return arg0;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			try {
-				ViewHolder holder;
-				
-				String beaconKey = arrayL.get(position).getMajor() + "-" + arrayL.get(position).getMinor();
-				buildingName = null;
-				imageURL = null;
-				for(int i=0;i<2;i++)
-				{					
-					if(beaconKey.equals(beacon.getJSONObject(i).getString("key")))
-					{
-						buildingName=beacon.getJSONObject(i).getString("name");
-						imageURL=beacon.getJSONObject(i).getString("image");
-						explain=beacon.getJSONObject(i).getString("explain");
-					}
-				}
-				if (convertView != null) {
-					holder = (ViewHolder) convertView.getTag();
-				} else {
-					holder = new ViewHolder(convertView = inflater.inflate(R.layout.tupple_monitoring, null));
-				}
-				if (arrayL.get(position).getProximityUuid() != null)
-		//		holder.beacon_uuid.setText("UUID: " + arrayL.get(position).getProximityUuid());
-		//		holder.beacon_minor.setText("Key : " + arrayL.get(position).getMajor() + "-" + arrayL.get(position).getMinor());
-			
-				holder.beacon_name.setText(buildingName);
-				holder.beacon_range.setText("°Å¸® : " + Double.parseDouble(String.format("%.3f", arrayL.get(position).getAccuracy())) + " m");
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			return convertView;
-		}
-
-		private class ViewHolder {
-	//		private TextView beacon_uuid;
-	//		private TextView beacon_major;
-			//private TextView beacon_minor;
-			private TextView beacon_range;
-			private TextView beacon_name;
-
-			public ViewHolder(View view) {
-	//			beacon_uuid = (TextView) view.findViewById(R.id.BEACON_uuid);
-	//			beacon_major = (TextView) view.findViewById(R.id.BEACON_major);
-				beacon_name = (TextView) view.findViewById(R.id.building_name);
-				//beacon_minor = (TextView) view.findViewById(R.id.BEACON_minor);
-				beacon_range = (TextView) view.findViewById(R.id.BEACON_range);
-
-				view.setTag(this);
-			}
-		}
-
 	}
 
 }

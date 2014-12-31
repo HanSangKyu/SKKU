@@ -7,5 +7,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="/android-ibeacon-service"/>
+	<classpathentry kind="lib" path="C:/Users/조은현/workspace2/TestApp/libs/universal-image-loader-1.9.2.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

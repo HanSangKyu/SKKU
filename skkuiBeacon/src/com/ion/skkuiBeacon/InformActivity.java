@@ -39,9 +39,9 @@ public class InformActivity extends ActionBarActivity {
 		} */
 		
 		TextView name = (TextView) findViewById(R.id.buildingName);
-		name.setText("∞«π∞¿Ã∏ß : " + getIntent().getStringExtra("buildingName").toString());
+		name.setText("Í±¥Î¨ºÏù¥Î¶Ñ : " + getIntent().getStringExtra("name").toString());
 		TextView explain = (TextView) findViewById(R.id.explain);
-		explain.setText("º≥∏Ì : " + getIntent().getStringExtra("explain").toString());
+		explain.setText("ÏÑ§Î™Ö : " + getIntent().getStringExtra("explain").toString());
 	}
 
 	@Override

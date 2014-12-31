@@ -986,7 +986,7 @@ containing a value of this type.
         public static final int splashactivity=0x7f020059;
     }
     public static final class id {
-        public static final int BEACON_range=0x7f070043;
+        public static final int BEACON_range=0x7f070044;
         public static final int action_bar=0x7f07001c;
         public static final int action_bar_activity_content=0x7f070015;
         public static final int action_bar_container=0x7f07001b;
@@ -998,13 +998,14 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f070016;
         public static final int action_menu_presenter=0x7f070017;
         public static final int action_mode_close_button=0x7f070024;
-        public static final int action_settings=0x7f070044;
+        public static final int action_settings=0x7f070045;
         public static final int activity_chooser_view_content=0x7f070025;
         public static final int always=0x7f07000b;
         public static final int back=0x7f07003d;
         public static final int beginning=0x7f070011;
         public static final int buildingName=0x7f07003f;
-        public static final int building_name=0x7f070042;
+        public static final int building_image=0x7f070042;
+        public static final int building_name=0x7f070043;
         public static final int checkbox=0x7f07002d;
         public static final int collapseActionView=0x7f07000d;
         public static final int default_activity_button=0x7f070028;

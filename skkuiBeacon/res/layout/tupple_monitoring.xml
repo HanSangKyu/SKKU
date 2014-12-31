@@ -6,7 +6,7 @@
     android:background="#D5D5D5" >
 	
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/building_image"
         android:layout_width="60dp"
         android:layout_height="match_parent"
         android:src="@drawable/ic_launcher"
