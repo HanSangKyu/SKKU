@@ -19,6 +19,12 @@ public class SplashActivity extends Activity {
 				finish();
 			}
 		};
-		handler.sendEmptyMessageDelayed(0, 3000);
+	//	handler.sendEmptyMessageDelayed(0, 3000);
+		handler.postDelayed(new Runnable(){
+			@Override
+			public void run(){
+				finish();
+			}
+		}, 3000);
 	}
 }

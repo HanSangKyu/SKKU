@@ -24,6 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:gravity="center|left"
-        android:text="40m" />
+        android:text="" />
 
 </LinearLayout>

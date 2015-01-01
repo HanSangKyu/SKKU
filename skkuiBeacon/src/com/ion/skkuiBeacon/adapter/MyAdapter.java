@@ -20,16 +20,16 @@ public class MyAdapter extends BaseAdapter {
 	int layoutRes;
 	ArrayList<MyItem> list;
 	LayoutInflater inflater;
-//	ImageLoader imageLoader;
-//	private DisplayImageOptions options;
+	ImageLoader imageLoader;
+	private DisplayImageOptions options;
 
 	public MyAdapter(Context context, int layoutRes, ArrayList<MyItem> list) {
 		this.context = context;
 		this.layoutRes = layoutRes;
 		this.list = list;
 		inflater = LayoutInflater.from(context);
-//		imageLoader = ImageLoader.getInstance();
-//		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher).showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher).resetViewBeforeLoading(true).cacheOnDisk(true).considerExifParams(true).build();
+		imageLoader = ImageLoader.getInstance();
+		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher).showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher).resetViewBeforeLoading(true).cacheOnDisk(true).considerExifParams(true).build();
 	}
 
 	@Override
@@ -58,9 +58,16 @@ public class MyAdapter extends BaseAdapter {
 			holder = new ViewHolder(convertView = inflater.inflate(R.layout.tupple_monitoring, null));
 		}
 
-//		imageLoader.displayImage(list.get(position).getImage(), holder.beacon_image, options);
+		imageLoader.displayImage(list.get(position).getImage(), holder.beacon_image, options);
 		holder.beacon_name.setText(list.get(position).getName());
-		holder.beacon_range.setText("거리 : " + Double.parseDouble(String.format("%.3f", list.get(position).getAccuracy())) + " m");
+		
+		Double accuracy = list.get(position).getAccuracy();
+		if(accuracy == 100){
+			holder.beacon_range.setText("");
+		}
+		else{
+			holder.beacon_range.setText("거리 : " + Double.parseDouble(String.format("%.3f", list.get(position).getAccuracy())) + " m");
+		}
 		
 		return convertView;
 	}

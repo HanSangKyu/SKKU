@@ -228,7 +228,8 @@ int drawable abc_textfield_searchview_right_holo_dark 0x7f020055
 int drawable abc_textfield_searchview_right_holo_light 0x7f020056
 int drawable ic_launcher 0x7f020057
 int drawable icon 0x7f020058
-int drawable splashactivity 0x7f020059
+int drawable mainactivity 0x7f020059
+int drawable splashactivity 0x7f02005a
 int id BEACON_range 0x7f070044
 int id action_bar 0x7f07001c
 int id action_bar_activity_content 0x7f070015
@@ -345,7 +346,6 @@ int string abc_shareactionprovider_share_with 0x7f05000d
 int string abc_shareactionprovider_share_with_application 0x7f05000c
 int string action_settings 0x7f05000e
 int string app_name 0x7f050000
-int string noibeacon 0x7f05000f
 int style AppBaseTheme 0x7f060000
 int style AppTheme 0x7f060001
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f060065

@@ -983,7 +983,8 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int ic_launcher=0x7f020057;
         public static final int icon=0x7f020058;
-        public static final int splashactivity=0x7f020059;
+        public static final int mainactivity=0x7f020059;
+        public static final int splashactivity=0x7f02005a;
     }
     public static final class id {
         public static final int BEACON_range=0x7f070044;
@@ -1159,7 +1160,6 @@ containing a value of this type.
         public static final int abc_shareactionprovider_share_with_application=0x7f05000c;
         public static final int action_settings=0x7f05000e;
         public static final int app_name=0x7f050000;
-        public static final int noibeacon=0x7f05000f;
     }
     public static final class style {
         /** 

@@ -2,10 +2,7 @@ package com.ion.skkuiBeacon;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.Collections;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,6 +19,7 @@ import android.widget.ListView;
 
 import com.ion.skkuiBeacon.adapter.MyAdapter;
 import com.ion.skkuiBeacon.bean.MyItem;
+import com.ion.skkuiBeacon.util.JsonParser;
 import com.radiusnetworks.ibeacon.IBeacon;
 import com.radiusnetworks.ibeacon.IBeaconConsumer;
 import com.radiusnetworks.ibeacon.IBeaconManager;
@@ -35,31 +33,19 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 	private ListView list = null;
 	private MyAdapter adapter = null;
 	private ArrayList<IBeacon> arrayL = new ArrayList<IBeacon>();
-	private ArrayList<MyItem> array = new ArrayList<MyItem>();
+	private ArrayList<MyItem> array = null;
 	private LayoutInflater inflater;
 
+	private final int arraysize = 2;
 	private BeaconServiceUtility beaconUtill = null;
 	private IBeaconManager iBeaconManager = IBeaconManager.getInstanceForApplication(this);
-	JSONArray beacon;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_monitor);
 		
-		try{
-			JSONObject jsonObject = new JSONObject("{beacon:[{key:\"1-2\",image:\"http://www.skku.ac.kr/new_home/upload/images/campusmap/61.JPG\", name:\"제1공학관\",explain:\"어쩌고저쩌고\"}," +
-					"{key:\"1-4\",image:\"http://www.skku.ac.kr/new_home/upload/images/campusmap/71.JPG\", name:\"제2공학관\",explain:\"건물번호 25\"}]}");
-			beacon = jsonObject.getJSONArray("beacon");
-			
-			for(int i=0;i<2;i++)
-			{
-				array.add(new MyItem(beacon.getJSONObject(i).getString("key"), beacon.getJSONObject(i).getString("image"), beacon.getJSONObject(i).getString("name"), beacon.getJSONObject(i).getString("explain"), 0));
-			}
-		} catch(JSONException e){
-			// TODO Auto-generated catch block
-			e.printStackTrace();			
-		}
+		array = (new JsonParser()).getItem();
 		
 		beaconUtill = new BeaconServiceUtility(this);
 		list = (ListView) findViewById(R.id.list);
@@ -106,18 +92,20 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 				
 				String key;
 				
-				for(int j=0;j<array.size();j++){
-					array.get(j).setAccuracy(0);
+				for(int j=0;j<arraysize;j++){
+					array.get(j).setAccuracy(100);
 				}
 				
 				for(int i=0;i<arrayL.size();i++){
 					key = arrayL.get(i).getMajor() + "-" + arrayL.get(i).getMinor();
-					for(int j=0;j<array.size();j++){
+					for(int j=0;j<arraysize;j++){
 						if(array.get(j).getKey().equals(key)){
 							array.get(j).setAccuracy(arrayL.get(i).getAccuracy());
 						}
 					}
 				}
+				
+				Collections.sort(array, new Compare());
 				
 				adapter.notifyDataSetChanged();
 			}
