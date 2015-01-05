@@ -35,8 +35,6 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 	private ArrayList<IBeacon> arrayL = new ArrayList<IBeacon>();
 	private ArrayList<MyItem> array = null;
 	private LayoutInflater inflater;
-
-	private final int arraysize = 2;
 	private BeaconServiceUtility beaconUtill = null;
 	private IBeaconManager iBeaconManager = IBeaconManager.getInstanceForApplication(this);
 	
@@ -92,13 +90,13 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 				
 				String key;
 				
-				for(int j=0;j<arraysize;j++){
+				for(int j=0;j<array.size();j++){
 					array.get(j).setAccuracy(100);
 				}
 				
 				for(int i=0;i<arrayL.size();i++){
 					key = arrayL.get(i).getMajor() + "-" + arrayL.get(i).getMinor();
-					for(int j=0;j<arraysize;j++){
+					for(int j=0;j<array.size();j++){
 						if(array.get(j).getKey().equals(key)){
 							array.get(j).setAccuracy(arrayL.get(i).getAccuracy());
 						}

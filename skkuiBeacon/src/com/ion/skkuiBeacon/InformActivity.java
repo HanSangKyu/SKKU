@@ -17,16 +17,16 @@ public class InformActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_inform);
 		
-		ImageView image = (ImageView) findViewById(R.id.image);
+		ImageView image = (ImageView) findViewById(R.id.inform_image);
 		ImageLoader imageLoader = ImageLoader.getInstance();
-		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher).showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher).resetViewBeforeLoading(true).cacheOnDisk(true).considerExifParams(true).build();
+		DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.loading).showImageForEmptyUri(R.drawable.error).showImageOnFail(R.drawable.error).resetViewBeforeLoading(true).cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).build();
 		
 		imageLoader.displayImage(getIntent().getStringExtra("image").toString(), image, options);
 		
-		TextView name = (TextView) findViewById(R.id.buildingName);
-		name.setText("건물이름 : " + getIntent().getStringExtra("name").toString());
-		TextView explain = (TextView) findViewById(R.id.explain);
-		explain.setText("설명 : " + getIntent().getStringExtra("explain").toString());
+		TextView name = (TextView) findViewById(R.id.inform_name);
+		name.setText(getIntent().getStringExtra("name").toString());
+		TextView explain = (TextView) findViewById(R.id.inform_explain);
+		explain.setText(getIntent().getStringExtra("explain").toString());
 	}
 
 	/*

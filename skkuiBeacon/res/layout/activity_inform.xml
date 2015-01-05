@@ -2,48 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#FFFFFF" >
 
-    <LinearLayout
-        android:id="@+id/header"
+    <TextView
+        android:id="@+id/inform_name"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:textColor="#FFFFFF"
+        android:text="제목"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#EAEAEA"
-        android:orientation="horizontal">
-        
-        <Button
-            android:id="@+id/back"
-            android:text="뒤로가기"
-            android:layout_width="wrap_content"
-          	android:layout_height="wrap_content" />
-        
-        <TextView
-          android:id="@+id/name"
-          android:text ="제1공학관"
-          android:textSize="20dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content" />
-        
-    </LinearLayout>
+        android:layout_height="60dp"
+        android:background="@drawable/barbackground" />
     
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/inform_image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/ic_launcher" />
     
     <TextView
-          android:id="@+id/buildingName"
-          android:text ="제1공학관"
-          android:textSize="20dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content" />
-    
-    <TextView
-          android:id="@+id/explain"
-          android:text ="여기는 1공학관 입니다."
-          android:textSize="20dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content" />
+        android:id="@+id/inform_explain"
+        android:text="설명"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
         
 </LinearLayout>

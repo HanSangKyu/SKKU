@@ -29,7 +29,7 @@ public class MyAdapter extends BaseAdapter {
 		this.list = list;
 		inflater = LayoutInflater.from(context);
 		imageLoader = ImageLoader.getInstance();
-		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher).showImageForEmptyUri(R.drawable.ic_launcher).showImageOnFail(R.drawable.ic_launcher).resetViewBeforeLoading(true).cacheOnDisk(true).considerExifParams(true).build();
+		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.loading).showImageForEmptyUri(R.drawable.error).showImageOnFail(R.drawable.error).resetViewBeforeLoading(true).cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).build();
 	}
 
 	@Override
