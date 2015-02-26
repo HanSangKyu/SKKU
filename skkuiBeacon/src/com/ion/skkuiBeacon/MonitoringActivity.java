@@ -12,7 +12,6 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -55,6 +54,7 @@ public class MonitoringActivity extends Activity implements IBeaconConsumer {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent newintent = new Intent(MonitoringActivity.this, InformActivity.class);
 				newintent.putExtra("image", array.get(position).getImage());
+				newintent.putExtra("map", array.get(position).getMap());
 				newintent.putExtra("name", array.get(position).getName());
 				newintent.putExtra("explain", array.get(position).getExplain());
 				startActivity(newintent);

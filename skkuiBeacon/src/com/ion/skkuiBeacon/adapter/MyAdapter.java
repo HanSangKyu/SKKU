@@ -63,9 +63,11 @@ public class MyAdapter extends BaseAdapter {
 		
 		Double accuracy = list.get(position).getAccuracy();
 		if(accuracy == 100){
+			holder.beacon_name.setTextColor(0xFF000000);
 			holder.beacon_range.setText("");
 		}
 		else{
+			holder.beacon_name.setTextColor(0xFFF15F5F);
 			holder.beacon_range.setText("거리 : " + Double.parseDouble(String.format("%.3f", list.get(position).getAccuracy())) + " m");
 		}
 		
